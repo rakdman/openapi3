@@ -1,0 +1,62 @@
+openapi: 3.0.3
+info:
+  title: Employee Service
+  version: 1.0.0
+servers:
+  - url: http://localhost
+
+paths:
+  /employee:
+    post:
+      summary: Add a new employee to the database
+      operationId: add
+      requestBody:
+        description: Create a new employee
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '405':
+          description: Invalid input
+    get:
+      summary: Get all employees
+      description: Get All employees
+      operationId: find
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+        '400':
+          description: Invalid status value
+        '404':
+          description: Employee not found
+components:
+  schemas:
+    Employee:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        firstName:
+          type: string
+          description: First Name of the employee
+          example: Michael
+        lastName:
+          type: string
+          description: Last name of the employee
+          example: Jackson
